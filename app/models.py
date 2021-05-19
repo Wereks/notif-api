@@ -10,3 +10,9 @@ class Message(Base):
     id = Column(Integer, primary_key=True, index=True)
     text = Column(String(160))
     views = Column(Integer, default=0)
+
+class User(Base):
+    __tablename__ = "users"
+
+    username = Column(String, primary_key=True, index=True)
+    hashed_password = Column(String)

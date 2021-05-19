@@ -1,3 +1,5 @@
+from hashlib import sha1
+
 from sqlalchemy.orm import Session  # type: ignore
 
 from . import models, schemas
@@ -44,3 +46,7 @@ def delete_message(db: Session, message_id: int):
 
     return None
 
+def get_user(db: Session, user: schemas.User):
+    return db.query(models.User).filter(models.User.username == user.username).first()
+
+#   db_message = models.User(username="Com", hashed_password=sha1(b"com-password").hexdigest())
