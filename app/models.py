@@ -8,5 +8,5 @@ class Message(Base):
     __tablename__ = "messages"
 
     id = Column(Integer, primary_key=True, index=True)
-    text = Column(String(140))
+    text = Column(String(160))
     views = Column(Integer, default=0)
