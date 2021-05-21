@@ -1,4 +1,6 @@
-from fastapi import FastAPI, Depends, HTTPException, Path, Body, status
+from typing import List
+
+from fastapi import FastAPI, Depends, HTTPException, Path, Body, Query, status
 from fastapi.security import  OAuth2PasswordRequestForm
 from fastapi.openapi.utils import get_openapi
 from sqlalchemy.orm import Session
@@ -51,10 +53,16 @@ def read_message(id: int = conpath_id(), db: Session = Depends(get_db)):
     message = crud.read_message(db, id)
     return message_not_none(message)
 
+@app.get("/messages/", response_model=List[schemas.Message], description="Returns all the messages, max to 100 at once")
+def read_messages(db: Session = Depends(get_db), 
+                skip: int = Query(0, ge=0, description="Number of messages to skip"), 
+                limit: int = Query(100, ge=1, le=100, description="Number of messages to be shown")):
+    messages = crud.read_messages(db, skip, limit)
+    return messages
+
 @app.post("/messages/", response_model=schemas.Message, description="Creates a new message from text, which should be in the request body")
 def create_message(text: schemas.MessageCreate = Body(..., examples=schemas.MessageCreate._examples), db: Session = Depends(get_db_authorized)):
     message = crud.create_message(db, text)
-    print(text)
     return message
 
 @app.put("/messages/{id}", response_model=schemas.Message, description="Updates the text of message specified by the id, resets views to 0")
