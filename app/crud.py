@@ -1,6 +1,6 @@
 from hashlib import sha1
 
-from sqlalchemy.orm import Session  # type: ignore
+from sqlalchemy.orm import Session
 
 from . import models, schemas
 
@@ -26,6 +26,7 @@ def create_message(db: Session, message: schemas.MessageCreate):
     db.commit()
     db.refresh(db_message)
 
+    print(db_message.id, db_message.text, db_message.views)
     return db_message
    
 def update_message_text(db: Session, message_id: int, message: schemas.MessageCreate):
@@ -49,4 +50,9 @@ def delete_message(db: Session, message_id: int):
 def get_user(db: Session, user: schemas.User):
     return db.query(models.User).filter(models.User.username == user.username).first()
 
-#   db_message = models.User(username="Com", hashed_password=sha1(b"com-password").hexdigest())
+#def create_user(db: Session, username, hashed_password):
+#    user = models.User(username=username, hashed_password=hashed_password)
+ #   db.query(models.User).delete()
+  #  db.add(user)
+  #  db.commit()
+   # db.refresh(user)

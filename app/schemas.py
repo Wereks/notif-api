@@ -39,7 +39,7 @@ class MessageCreate(MessageBase):
 
 class Message(MessageBase):
     id: Annotated[int, Field(gt=0, title="ID used to determine a specific message")]
-    views: Annotated[int, Field(gt=0, title="Amount, which the message has been read")]
+    views: Annotated[int, Field(ge=0, title="Amount, which the message has been read")]
 
     class Config:
         orm_mode = True
