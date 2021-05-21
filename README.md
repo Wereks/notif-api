@@ -13,4 +13,4 @@ If you want to run the API on your local machine, you need to download all modul
 
 If everything is set, you can start the api with the command `uvicorn app.api:app`, called from the root folder.
 
-To run the tests, you need to set the `SQLALCHEMY\_TEST\_DATABASE\_URI` variable in the `app/tests/conftest.py` file, after that you can use the `pytest` command to run the tests.
+To run the tests, you need to set the `SQLALCHEMY_TEST_DATABASE_URI` variable in the `app/tests/conftest.py` file, after that you can use the `pytest` command to run the tests.
