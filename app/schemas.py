@@ -1,5 +1,5 @@
 from typing import Annotated, Dict
-from pydantic import BaseModel, conint, Field
+from pydantic import BaseModel, Field
 
 class MessageBase(BaseModel):
     text: Annotated[str, Field(min_length=1, max_length=160, title="Text of the message")]
