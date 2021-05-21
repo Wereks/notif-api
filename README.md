@@ -13,4 +13,7 @@ If you want to run the API on your local machine, you need to download all modul
 
 If everything is set, you can start the api with the command `uvicorn app.api:app`, called from the root folder.
 
-To run the tests, you need to set the `SQLALCHEMY_TEST_DATABASE_URI` variable in the `app/tests/conftest.py` file, after that you can use the `pytest` command to run the tests.
+To run the tests, you need to set the `SQLALCHEMY_TEST_DATABASE_URI` (preferably not the production database) variable in the `app/tests/conftest.py` file, after that you can use the `pytest` command to run the tests.
+
+To host it on Heroku, you just need to fork the repository, link it with your heroku account and install some kind of a database on heroku, for example Heroku Postgres. 
+To create an user for authorization use the `get_password_hash` function from the `app/auth.py` file. Save the username and hashed password in the user table of the database.
