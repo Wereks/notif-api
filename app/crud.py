@@ -1,5 +1,3 @@
-from hashlib import sha1
-
 from sqlalchemy.orm import Session
 
 from . import models, schemas
@@ -17,8 +15,16 @@ def read_message(db: Session, message_id: int):
 
     return None
 
-def get_messages(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.User).offset(skip).limit(limit).all()
+def read_messages(db: Session, skip: int = 0, limit: int = 100):
+    messages = db.query(models.Message).order_by(models.Message.id).offset(skip).limit(limit).all()
+    return_messages = [schemas.Message(**vars(db_message)) for db_message in messages]
+
+    #TODO: slow, faster method needed
+    for msg in messages:
+        msg.views = msg.views + 1
+    db.commit()    
+
+    return return_messages
 
 def create_message(db: Session, message: schemas.MessageCreate):
     db_message = models.Message(text=message.text)
@@ -42,6 +48,7 @@ def delete_message(db: Session, message_id: int):
     if db_message := get_message(db, message_id):
         db.delete(db_message)
         db.refresh(db_message)
+        db.commit()
         return db_message
 
     return None
