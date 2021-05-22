@@ -1,6 +1,5 @@
 import pytest
 
-@pytest.mark.skip("Problem with the rollbacks and instance being not in the session")
 def test_delete(client, token):
     text = "Message to be deleted"
     response_create = client.post('/messages/',
