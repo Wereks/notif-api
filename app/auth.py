@@ -12,7 +12,6 @@ from sqlalchemy.orm import Session
 from . import crud, schemas
 from .database import SessionLocal
 
-
 SECRET_KEY = os.getenv('SECRET_KEY')
 ALGORITHM = os.getenv('ALGORITHM')
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv('ACCESS_TOKEN_EXPIRE_MINUTES', 30))
@@ -35,7 +34,6 @@ def get_password_hash(password):
 
 def authenticate_user(db: Session, username: str, password: str):
     """Returns False if user with those credentials doesnt exists, else returns the user"""
-    #crud.create_user(db, username="Com", hashed_password=get_password_hash("com-password"))
     user = crud.get_user(db, schemas.User(username=username))
 
     if not user:
