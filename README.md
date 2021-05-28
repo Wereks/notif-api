@@ -10,6 +10,7 @@ If you want to run the API on your local machine, you need to download all modul
 `ALGORITHM : str` - algorithm to hash the token
 `DATABASE_URL : str` - SQLalchemy compatibable database url
 `SECRET_KEY : str` - sekret key for the token
+`TOKEN_URL : str` - endpoint of the authorization
 
 If everything is set, you can start the api with the command `uvicorn app.api:app`, called from the root folder.
 
