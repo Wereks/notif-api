@@ -15,4 +15,7 @@ app.include_router(
     prefix="/messages",
     tags=["messages"]
 )
-app.include_router(authorization.router)
+app.include_router(
+    authorization.router,
+    tags=["authorization"],
+)
